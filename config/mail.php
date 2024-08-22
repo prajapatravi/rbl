@@ -120,9 +120,9 @@ return [
 
     'from' => [
 
-        'address' => env('MAIL_FROM_ADDRESS', 'qaviews-noreply@qdegrees.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreplyall@qdegrees.org'),
 
-        'name' => env('MAIL_FROM_NAME', 'IDFC Support'),
+        'name' => env('MAIL_FROM_NAME', 'RBL Support'),
 
     ],
 

@@ -7,6 +7,7 @@ use App\Model\Branch;
 use App\Model\BranchRepo;
 use Illuminate\Support\Facades\Crypt;
 use Validator;
+use App\Imports\BranchRepoImport;
 use App\Exports\BranchRepoExport;
 use Maatwebsite\Excel\Facades\Excel;
 class BranchRepoController extends Controller
@@ -154,5 +155,20 @@ class BranchRepoController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 3000);
         return Excel::download(new BranchRepoExport, 'Branch.xlsx');
+    }
+
+
+    //V Upload Page Show
+    public function showBranchRepoImport()
+    {
+        return view('branchrepo.upload');
+    }
+
+
+    //V Upload Excel Data
+    public function branchRepoImport()
+    {
+        Excel::import(new BranchRepoImport, request()->file('file'));
+        return redirect()->back()->with('success', 'Excel file imported successfully.');
     }
 }

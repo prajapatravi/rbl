@@ -36,7 +36,7 @@
 
                         <strong class="card-title">Branch List</strong>
                         <a class="btn btn-primary btn-sm float-right" style="margin-right: 5px" href="{{route('excelDownloadBranch')}}" target="_blank">Export Branch</a>
-
+                        <a class="btn btn-info btn-sm float-right" style="margin-right: 5px" href="{{route('branchExcelUpload')}}" target="_blank">Import Branch</a>
                     </div>
 
                     <div class="card-body">

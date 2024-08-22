@@ -87,8 +87,7 @@
             <div class="col col-md-4">
                 <div class="form-group">
                     <label for="text-input" class=" form-control-label">Branch Id</label>
-                    <input type="text" id="text-input" name="uuid" placeholder="Branch Id"
-                                                        class="form-control" readonly value="{{getBranchUuid()}}">
+                    <input type="text" id="text-input" name="uuid" placeholder="Branch Id"class="form-control" readonly value="">
                     
                 </div>
             </div>

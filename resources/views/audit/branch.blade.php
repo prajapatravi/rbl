@@ -1,4 +1,4 @@
-
+<!-- 
 @if($type=='yard')
 
     <div class="col-md-3 form-group">
@@ -33,7 +33,7 @@
 
     </div>
 
-@endif
+@endif -->
 
 @if($type=='agency')
 
@@ -126,14 +126,14 @@
     </div>
 
 @endif
-
+<!-- 
 <div class="col-md-3 form-group">
 
     <label>Branch name</label>
 
     <input type="text" name="branch" class="form-control" value="{{$branchable->name ?? ''}}" disabled>
 
-</div>
+</div> -->
 
 <div class="col-md-3 form-group">
 

@@ -7,6 +7,7 @@ use App\Model\Branch;
 use App\Model\AgencyRepo;
 use Illuminate\Support\Facades\Crypt;
 use Validator;
+use App\Imports\AgencyRepoImport;
 use App\Exports\AgencyRepoExport;
 use Maatwebsite\Excel\Facades\Excel;
 class AgencyRepoController extends Controller
@@ -155,4 +156,21 @@ class AgencyRepoController extends Controller
         ini_set('max_execution_time', 3000);
         return Excel::download(new AgencyRepoExport, 'AgencyRepo.xlsx');
     }
+
+
+    //V Upload Page Show
+    public function showAgencyrepoImport()
+    {
+        return view('agencyrepo.upload');
+    }
+
+
+    //V Upload Excel Data
+    public function agencyrepoImport()
+    {
+        Excel::import(new AgencyrepoImport, request()->file('file'));
+
+        return redirect()->back()->with('success', 'Excel file imported successfully.');
+    }
+
 }

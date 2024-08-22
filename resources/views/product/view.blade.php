@@ -16,82 +16,100 @@ Users
 		<div class="col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<strong class="card-title">Product view</strong>
+					<strong class="card-title">Product Hierarchy View</strong>
 					<a class="btn btn-primary btn-sm float-right" style="margin-right: 5px" href="{{route('excelDownloadProduct')}}" target="_blank">Export Product</a>
 				</div>
 				<div class="card-body">
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
 						<thead>
 							<tr>
-									<th scope="col">#</th>
-									<th scope="col">
-										Branch Name
-                                    </th>
-									<th scope="col">
-										Product Name
-                                    </th>
-                                    @foreach ($productUserType as $item)
-									<th scope="col">
-										{{str_replace('_'," ",$item)}}
-									</th>
-                                    @endforeach
-									
-									<th scope="col">
-										Actions
-									</th>
+								<th scope="col">#</th>
+								<th scope="col">Branch Name</th>
+								<th scope="col">Product Name</th>
+								<th class="font-weight-bold" scope="col">Collection Manager</th>
+								<th scope="col">Area Collection Manager</th>
+								<th scope="col">Regional Collection Manager</th>
+								<th scope="col">Zonal Collection Manager</th>
+								<th scope="col">National Collection Manager</th>
+								<th scope="col">Group Product Head</th>
+								<th scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							@php $i=1; @endphp
-							@foreach($productUser as $k=>$val)
-								@foreach($val as $key=>$row)
-									<tr scope="row">
-										<td>{{$i++}}</td>
-										<td>
-											{{$k ?? ''}}
-										</td>
-										<td>
-											{{$key ?? ''}}
-										</td>
-										<td>
-											{{$row['Area_Collection_Manager']->user->name ?? '' }}
-										</td>
-										
-										<td>
-											{{$row['Regional_Collection_Manager']->user->name ?? '' }}
-										</td>
-										
-										<td>
-											{{$row['National_Collection_Manager']->user->name ?? '' }}
-										</td>
-										
-										<td>
-											{{$row['Group_Product_Head']->user->name ?? '' }}
-										</td>
-										<td>
-											{{$row['Zonal_Collection_Manager']->user->name ?? '' }}
-										</td>
-										<td>
-											{{$row['Head_of_the_Collections']->user->name ?? '' }}
-										</td>
-										<td nowrap>
-											 {{-- <div style="display: flex;">
-												{{Form::open([ 'method'  => 'delete', 'route' => [ 'user.destroy', Crypt::encrypt($row->id) ],'onsubmit'=>"delete_confirm()"])}}
-												<button class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-													<i class="la la-trash"></i>
-												</button>
-											</form>  --}}
-											<a href="{{url('product/hierarchy/'.$k.'/'.$key.'/edit')}}" class="btn btn-xs btn-info" title="Edit">
-												<i class="fa fa-edit"></i>
-											</a>
-											{{-- <a href="{{url('product/'.Crypt::encrypt($row->id))}}" class="btn btn-xs btn-danger" title="View">
-												<i class="fa fa-trash"></i>
-											</a> --}}
+							@foreach($data as $row)
+								<tr scope="row">
+									<td>{{$loop->iteration}}</td>
+									<td>
+										@if(isset($row->br_name))
+											{{$row->br_name }}
+										@else
+										---
+										@endif
+									</td>
+									<td>
+										@if (isset($row->pr_name))
+											{{$row->pr_name}}
+										@else
+											---
+										@endif
+									</td>
 
-											 {{-- </div>  --}}
-										</td>
-									</tr>
-								@endforeach
+									<td class="font-weight-bold">
+										@if (isset($row->cm_name))
+											{{$row->cm_name}}
+										@else
+											---
+										@endif
+									</td>
+									<td>
+										@if (isset($row->acm_name))
+											{{$row->acm_name}}
+										@else
+											-
+										@endif
+									</td>
+									<td>
+										@if (isset($row->rcm_name))
+											{{$row->rcm_name}}
+										@else
+											-
+										@endif
+									</td>
+									<td>
+										@if (isset($row->zcm_name))
+											{{$row->zcm_name}}
+										@else
+											-
+										@endif
+									</td>
+									<td>
+										@if (isset($row->ncm_name))
+											{{$row->ncm_name}}
+										@else
+											-
+										@endif
+									</td>
+									<td>
+										@if (isset($row->gph_name))
+											{{$row->gph_name}}
+										@else
+											-
+										@endif
+									</td>
+									<td nowrap>
+										<a href="{{ route('hierarchyEdit', ['id' => $row->id]) }}" class="btn btn-xs btn-info" title="View">
+											<i class="fa fa-edit"></i>
+										</a>
+										
+										<div class="btn-group">										
+											<form action="{{ route('producthierarchy.destroy', ['id' => $row->id]) }}" method="POST">
+												@csrf
+												@method('DELETE')
+												<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+											</form>
+										</div>
+									</td>
+								</tr>
 							@endforeach
 
 						</tbody>

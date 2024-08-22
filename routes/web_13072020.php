@@ -71,6 +71,8 @@ Route::get('product/hierarchy/view', 'ProductController@hierarchyView')->name('H
 Route::get('product/hierarchy', 'ProductController@hierarchy')->name('Hierarchy');
 Route::post('product/do-hierarchy', 'ProductController@doHierarchy')->name('doHierarchy');
 Route::resource('product', 'ProductController');
+Route::resource('productattribute', 'ProductattributeController');
+// Route::get('show-productattribute', 'ProductattributeController@showProductAttribute')->name('showPrattribute');
 Route::resource('qm', 'QmSheetController');
 
 Route::get('/get-regions', 'BranchController@getRegions');

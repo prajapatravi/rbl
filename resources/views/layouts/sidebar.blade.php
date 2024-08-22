@@ -114,7 +114,7 @@
 
 		<li class="menu-item-has-children dropdown">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Location</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-map-marker"></i>Location</a>
 
                         <ul class="sub-menu children dropdown-menu">
 
@@ -129,7 +129,7 @@
 
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Audit Cycle</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file"></i>Audit Cycle</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             <li><i class="fa fa-plus"></i><a href="{{url('create-audit-cycle')}}">Create Cycle</a></li>
                             <li><i class="fa fa-users"></i><a href="{{url('list-audit-cycle')}}">List</a></li>
@@ -141,21 +141,24 @@
                         <ul class="sub-menu children dropdown-menu">                         
                             <li><i class="fa fa-plus"></i><a href="{{route('user.create')}}">Create User</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('user.index')}}">User List</a></li>
-                            
+                            <li><i class="fa fa-plus"></i><a href="{{route('userhierarchy.create')}}">Create User Hierarchy</a></li>
+                            <li><i class="fa fa-users"></i><a href="{{route('userhierarchy.index')}}">User Hierarchy List</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Products</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-gift"></i>Products</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('product.create')}}">Create Product</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('product.index')}}">Product List</a></li>
+                            <li><i class="fa fa-plus"></i><a href="{{route('productattribute.create')}}">Create Sub Product</a></li>
+                            <li><i class="fa fa-users"></i><a href="{{route('productattribute.index')}}">Sub Product List</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('Hierarchy')}}">Product Hierarchy</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('HierarchyView')}}">Product Hierarchy View</a></li>
 
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Branches</a>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bank"></i>Branches</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('branch.create')}}">Create Branch</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('branch.index')}}">Branch List</a></li>
@@ -163,37 +166,37 @@
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Branch Repo</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bank"></i>Branch Repo</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('branchrepo.create')}}">Create Branch Repo</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('branchrepo.index')}}">Branch Repo List</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Agency</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-industry"></i>Agency</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             <li><i class="fa fa-plus"></i><a href="{{route('agency.create')}}">Create Agency</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('agency.index')}}">Agency List</a></li>
                             
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Agency Repo</a>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-industry"></i>Agency Repo</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('agencyrepo.create')}}">Create Agency Repo</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('agencyrepo.index')}}">Agency Repo List</a></li>
 
                         </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Yard</a>
+                    </li> -->
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Yard</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('yard.create')}}">Create Yard</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('yard.index')}}">Yard List</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Yard Repo</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -202,17 +205,17 @@
 
                         </ul>
                     </li> -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Analytics</a>
+                    <!-- <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Analytics</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('upload.index')}}">upload</a></li>
                             <li><i class="fa fa-plus"></i><a href="{{route('gapShow')}}">Compliance</a></li>
-                            <!-- <li><i class="fa fa-users"></i><a href="{{route('yard.index')}}">Yard List</a></li> -->
+
 
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Bulk Upload</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-upload"></i>Bulk Upload</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-plus"></i><a href="{{route('bulkUpload.index')}}">Bulk Upload</a></li>
                             {{-- <li><i class="fa fa-plus"></i><a href="{{route('gapShow')}}">Compliance</a></li> --}}
@@ -229,7 +232,7 @@
                         </ul>
                     </li> --}}
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Qm Sheet</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-excel-o"></i>Qm Sheet</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             <li><i class="fa fa-plus"></i><a href="{{route('qm_sheet.create')}}">Create Qm Sheet</a></li>
                             <li><i class="fa fa-users"></i><a href="{{route('qm_sheet.index')}}">Qm Sheet List</a></li>
@@ -259,40 +262,40 @@
                     @endrole
                     @hasanyrole('Admin|Quality Control')
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>QC</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-check"></i>QC</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             {{-- <li><i class="fa fa-plus"></i><a href="{{route('allocation.create')}}">Allocation sheet</a></li> --}}
                             <li><i class="fa fa-users"></i><a href="{{route('audited_search')}}">Submitted</a></li>  
                             <li><i class="fa fa-users"></i><a href="{{route('done_audited_list')}}">Approved</a></li>  
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
+                    <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Action plan</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             {{-- <li><i class="fa fa-plus"></i><a href="{{route('action.create')}}">Allocation sheet</a></li> --}}
                             <li><i class="fa fa-users"></i><a href="{{route('action.index')}}">Action plan</a></li>  
                             <li><i class="fa fa-users"></i><a href="{{route('action-list')}}">Action plan Answer List</a></li>  
                         </ul>
-                    </li>
+                    </li> -->
                     @endrole
                     @role('Admin')
-                    <li class="menu-item-has-children dropdown">
+                    <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Red Alert</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             {{-- <li><i class="fa fa-plus"></i><a href="{{route('allocation.create')}}">Allocation sheet</a></li> --}}
                             <li><i class="fa fa-users"></i><a href="{{route('red-alert.index')}}">Red Alert</a></li>  
                         </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
+                    </li> -->
+                    <!-- <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Artifact</a>
                         <ul class="sub-menu children dropdown-menu">                         
                             {{-- <li><i class="fa fa-plus"></i><a href="{{route('allocation.create')}}">Allocation sheet</a></li> --}}
                             <li><i class="fa fa-users"></i><a href="{{route('artifact.index')}}">Artifact List</a></li>  
                         </ul>
-                    </li>
+                    </li> -->
                     <!-- added by kratika -->
                      <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Reports</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-archive-o"></i>Reports</a>
                           <ul class="sub-menu children dropdown-menu">                         
                            
                             <li><i class="fa fa-file"></i><a href="{{route('reports')}}">QA-QC Report</a></li>  

@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Crypt;
 use App\Agency;
 
 use App\User;
+use DB,Response;
 
 use App\Model\Branch;
 
 use Validator;
-
+use App\Imports\AgencyImport;
 use App\Exports\AgencyExport;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,8 +41,10 @@ class AgencyController extends Controller
 
     {
 
-        $data=Agency::with('branch')->where('status',0)->get();
+        $data=Agency::with('User')->where('status',0)->get();
 
+
+       // echo '<pre>'; print_r($data); die;
         return view('agency.list', compact('data'));
 
     }
@@ -63,14 +66,11 @@ class AgencyController extends Controller
     {
 
         $user=User::get(['id', 'name']);
+        $regions = DB::table("regions")->get();
 
         $branch=Branch::get(['id', 'name']);
 
-        return view('agency.create',
-
-        compact('user','branch')
-
-    );
+        return view('agency.create',compact('user','branch','regions') );
 
     }
 
@@ -91,12 +91,13 @@ class AgencyController extends Controller
     public function store(Request $request)
 
     {
+      //  echo '<pre>'; print_r($request->all()); die;
 
         $validator = Validator::make($request->all(), [
 
             'name' => 'required',
 
-            'branch_name' => 'required',
+          //  'branch_name' => 'required',
 
             'agency_id' => 'required',
 
@@ -105,6 +106,11 @@ class AgencyController extends Controller
             'location' => 'required',
 
             'address' => 'required',
+            'region_id'=>'required',
+            'state'=>'required',
+            'email'=>'required',
+            'city_id'=>'required',
+            'mobile_number'=>'required',
 
         ]);
 
@@ -122,15 +128,17 @@ class AgencyController extends Controller
 
             ['name'=>$request->name,
 
-            'branch_id'=>$request->branch_name,
-
             'agency_id'=>$request->agency_id,
-
             'agency_manager'=>$request->agency_manager,
-
             'location'=>$request->location,
-
-            'addresss'=>$request->address]
+            'address'=>$request->address,
+            'region_id'=>$request->region_id,
+            'state'=>$request->state,
+            'email'=>$request->email,
+            'city_id'=>$request->city_id,
+            'mobile_number'=>$request->mobile_number,
+            'agency_phone'=>$request->mobile_number,
+            ]
 
         );
 
@@ -203,15 +211,17 @@ class AgencyController extends Controller
 
     {
 
-        $data=Agency::find(Crypt::decrypt($id));
+        $data = Agency::with('city.state.region')->find(Crypt::decrypt($id));
+
+        $region = $data->city->state->region->id ?? '';
 
         $user=User::get(['id', 'name']);
 
-        
+        $regions = DB::table("regions")->get();
 
         $branch=Branch::get(['id', 'name']);
 
-        return view('agency.edit', compact('data','user','branch'));
+        return view('agency.edit', compact('data','user','branch','regions','region'));
 
     }
 
@@ -239,7 +249,7 @@ class AgencyController extends Controller
 
             'name' => 'required',
 
-            'branch_name' => 'required',
+          //  'branch_name' => 'required',
 
             'agency_id' => 'required',
 
@@ -248,6 +258,11 @@ class AgencyController extends Controller
             'location' => 'required',
 
             'address' => 'required',
+            'region_id'=>'required',
+            'state'=>'required',
+            'email'=>'required',
+            'city_id'=>'required',
+            'mobile_number'=>'required',
 
         ]);
 
@@ -265,7 +280,7 @@ class AgencyController extends Controller
 
             ['name'=>$request->name,
 
-            'branch_id'=>$request->branch_name,
+          //  'branch_id'=>$request->branch_name,
 
             'agency_id'=>$request->agency_id,
 
@@ -273,7 +288,16 @@ class AgencyController extends Controller
 
             'location'=>$request->location,
 
-            'addresss'=>$request->address]
+            'address'=>$request->address,
+            
+            
+            'region_id'=>$request->region_id,
+            'state'=>$request->state,
+            'email'=>$request->email,
+            'city_id'=>$request->city_id,
+            'mobile_number'=>$request->mobile_number,
+            'agency_phone'=>$request->mobile_number,
+            ]
 
         );
 
@@ -325,5 +349,30 @@ class AgencyController extends Controller
 
     }
 
-}
 
+    //V Upload Page Show
+    public function showAgencyImport()
+    {
+        return view('agency.upload');
+    }
+
+
+    //V Upload Excel Data
+    public function agencyImport()
+    {
+     //  echo 'dfdsf'; die;AgencyImport
+        Excel::import(new AgencyImport, request()->file('file'));
+
+        return redirect()->back()->with('success', 'Excel file imported successfully.');
+    }
+
+    public function downloadAgencySample(){
+      //  echo "jh"; die;
+       $file= public_path(). "/download/agency_import.xlsx";
+        $headers = array(
+                  'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                );
+        return Response::download($file, 'agency_import.xlsx',$headers);
+    }
+
+}

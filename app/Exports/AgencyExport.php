@@ -14,25 +14,25 @@ class AgencyExport implements FromArray,WithHeadings
     public function array(): array
     {
         //
-        $data=Agency::with(['branch.branchable'=>function($q){
-            $q->with('product')->where('type','Collection_Manager');
-        },'branch.city.state.region'])->get();
+        // $data=Agency::with(['branch.branchable'=>function($q){
+        //     $q->with('product')->where('type','Collection_Manager');
+        // },'branch.city.state.region'])->get();
+        $data=Agency::with('User')->where('status',0)->get();
+
         // dd($data->first());
         $final=[];
         foreach($data as $item){
-            foreach($item->branch->branchable as $val){
+            //foreach($item->branch->branchable as $val){
                 $final[]=[
-                    'LOB'=>$item->branch->lob ?? '',
-                    'Zone'=>$item->branch->city->state->region->name ?? '',
+                    'LOB'=>$item->lob ?? '',
+                    'Zone'=>$item->region ?? '',
                     'Agency_Code'=>$item->agency_id,
                     'Agency_Name'=>$item->name,
                     'Agency_Location'=>$item->location,
                     'Agency_Address'=>$item->addresss,
-                    'Branch'=>$item->branch->name,
-                    'Product'=>$val->product->name ?? '',
-                    'Collection_manager_name'=>$val->user->name ?? '', 
+                    'Collection_manager_name'=>$item->user->name ?? '', 
                 ];
-            }
+           // }
         }
         return $final;
     }

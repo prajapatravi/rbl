@@ -122,11 +122,17 @@ class AllocationController extends Controller
         }
     }
     public function getSheets($status=null){
+       
         if($status == 1) {
            return redirect('auditor_list')->with('success', 'Audit submitted successfully !!.'); 
         }
         $data=Allocation::with('user','sheet')->where('user_id',Auth::user()->id)->get();
+
+      //  echo '<pre>'; print_r( $data); die;
         return view('qa.list',compact('data'));
+
+      
+        
     }
     public function done_audited_list()
     {   

@@ -157,7 +157,7 @@ class UploadController extends Controller
        public function userImport(Request $request){
             $validator = Validator::make($request->all(), [
                 'user_excel' => 'required',
-                'role' => 'required',
+            //    'role' => 'required',
              ]);
              $validator->after(function ($validator) use ($request){
                 if($request->hasFile('user_excel') && $this->checkExcelFile($request->file('user_excel')->getClientOriginalExtension()) == false) {

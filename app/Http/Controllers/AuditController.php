@@ -213,7 +213,7 @@ class AuditController extends Controller
     public function render_audit_sheet($qm_sheet_id)
 
     {
-
+        //echo 'fdsf'; die;
         //dd(all_non_scoring_obs_options(1));
 
 
@@ -244,14 +244,17 @@ class AuditController extends Controller
 
         $branch=Branch::where('lob',$data->lob)->orderBy('name', 'ASC')->get();
 
-        $agency=Agency::whereIn('branch_id',$branch->pluck('id'))->orderBy('name', 'ASC')->get();
+        // $agency=Agency::whereIn('branch_id',$branch->pluck('id'))->orderBy('name', 'ASC')->get();
 
+        $agency=Agency::orderBy('name', 'ASC')->get();
+        
         $yard=Yard::whereIn('branch_id',$branch->pluck('id'))->orderBy('name', 'ASC')->get();
 
         $branchRepo=BranchRepo::whereIn('branch_id',$branch->pluck('id'))->orderBy('name', 'ASC')->get();
 
         $agencyRepo=AgencyRepo::whereIn('branch_id',$branch->pluck('id'))->orderBy('name', 'ASC')->get();
 
+       // echo 'fdsf'; die;
       	return view('audit.render_sheet',compact('qm_sheet_id','data','branch','agency','yard','branchRepo','agencyRepo','cycle'));
 
         // return view('audit.render_sheet',compact('qm_sheet_id','data','branch'));
@@ -262,6 +265,7 @@ class AuditController extends Controller
 
     {
 
+       // echo 'fdsf'; die;
         //dd(all_non_scoring_obs_options(1));
 
 
@@ -308,6 +312,8 @@ class AuditController extends Controller
 
     public function getProduct($id,$type){
 
+       
+
         if($type=='branch'){
 
             // $branchable=Branch::with('branchable','city')->where('id',$id)->first();
@@ -323,12 +329,13 @@ class AuditController extends Controller
         else if($type=='agency'){
 
             $agency=Agency::with('user')->find($id);
+           
 
             // $branchable=Branch::with('branchable','city')->where('id',$agency->branch_id)->first();
 
             // $branchable=Branchable::with('product')->where('branch_id',$agency->branch_id)->get();
 
-            $productIds=Branchable::where('branch_id',$agency->branch_id)->get()->pluck('product_id')->toArray();
+            $productIds=Branchable::where('agency_id',$agency->id)->get()->pluck('product_id')->toArray();
 
             $branchable=Products::whereIn('id',array_unique($productIds))->get();
 
@@ -370,13 +377,16 @@ class AuditController extends Controller
 
         } 
 
+       // echo '<pre>'; print_r($branchable);  die;
         return response()->json(['data'=>$branchable]);
 
     }
 
     public function renderBranch($id,$type,$product_id){
 
+      //  echo '<pre>'; print_r($id); die;
         $agency=[];
+
 
         $yard=[];
 
@@ -403,15 +413,17 @@ class AuditController extends Controller
         else if($type=='agency'){
 
             $agency=Agency::with('user')->find($id);
-
-            $branchable=Branch::with(['branchable'=>function($q) use($product_id){
+           
+            $branchable=Agency::with(['branchable'=>function($q) use($product_id){
 
                // $q->where('product_id',$product_id);
 
                //$q->where('product_id',$product_id)->latest();
                 $q->where('product_id',$product_id)->orderBy('id','DESC');  
 
-            },'city','branchable.ncm','branchable.rcm','branchable.ghead','branchable.zcm','branchable.acm'])->where('id',$agency->branch_id)->first();
+            },'city','branchable.ncm','branchable.rcm','branchable.ghead','branchable.zcm','branchable.acm'])->where('id',$agency->id)->first();
+            
+           // echo '<pre>'; print_r($branchable);die;
 
         }
 
@@ -498,13 +510,14 @@ class AuditController extends Controller
 
         else if($type=='agency'){
 
+
             $agency=Agency::with('user')->find($id);
 
-            $branchable=Branch::with(['branchable'=>function($q) use($product_id){
+            $branchable=Agency::with(['branchable'=>function($q) use($product_id){
 
                 $q->where('product_id',$product_id);
 
-            },'city'])->where('id',$agency->branch_id)->first();
+            },'city'])->where('id',$agency->id)->first();
 
         }
 
@@ -599,18 +612,17 @@ class AuditController extends Controller
         //dd(all_non_scoring_obs_options(1));
 
         $result=Audit::with(['audit_parameter_result','audit_results'])->where('id',Crypt::decrypt($qm_sheet_id))->first();
-
-	//dd($result->id);        
-$resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('parameter_id');
+      //  echo '<pre>'; print_r($result); die;
+    $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('parameter_id');
 
         $resultSubPar=AuditResult::where('audit_id',$result->id)->get()->keyBy('sub_parameter_id');
 
         $data = QmSheet::with('parameter.qm_sheet_sub_parameter.artifact')->find($result->qm_sheet_id);
 
         $branch=Branch::where('lob',$data->lob)->get();
+        $agency=Agency::orderBy('name', 'ASC')->get();
 
-        $agency=Agency::whereIn('branch_id',$branch->pluck('id'))->get();
-
+    //    echo '<pre>'; print_r($agency); die;
         $yard=Yard::whereIn('branch_id',$branch->pluck('id'))->get();
 
         $branchRepo=BranchRepo::whereIn('branch_id',$branch->pluck('id'))->get();
@@ -623,6 +635,7 @@ $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('pa
 
         // dd($data,$resultPar,$resultSubPar);
 
+    // echo '<pre>'; print_r($data); die;
     	return view('audit.view_sheet',compact('qm_sheet_id','data','result','resultPar','resultSubPar','branch','agency','yard','branchRepo','agencyRepo','artifactIds','redalertIds'));
 
     
@@ -800,7 +813,7 @@ $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('pa
 
                         $otherDetails['name']=$agency->name ?? '';
 
-                        $ids= Branchable::where('branch_id',$agency->branch_id)->get(['id','manager_id'])->pluck('manager_id');
+                        $ids= Branchable::where('agency_id',$audit->agency_id)->get(['id','manager_id'])->pluck('manager_id');
 
                     break;
 
@@ -1500,8 +1513,11 @@ $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('pa
 
     public function store_audit(Request $request)
 
-    {   //dd("fefef");
-    //dd($request);
+    {  
+    
+        //    echo '<pre>'; print_r($request->all()); die; 
+        //dd("fefef");
+        //dd($request);
         DB::beginTransaction();
         try{
         logger($request);
@@ -1983,7 +1999,7 @@ $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('pa
     public function store_audit_new(Request $request)
 
     {   //dd("fefef");
-    //dd($request);
+        //dd($request);
         DB::beginTransaction();
         try{
         logger($request);
@@ -3296,4 +3312,3 @@ $resultPar=AuditParameterResult::where('audit_id',$result->id)->get()->keyBy('pa
     }
 
 }
-

@@ -51,14 +51,19 @@ class DashboardController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 600);
         $user=Auth::user();
+
+      //  echo '<pre>'; print_r($user); die;
         if($user->hasRole('Quality Auditor') && $user->hasRole('Admin')!=true){
+           // echo '1'; die;
             return $this->qaDashboard($request);
         }
         else if($user->hasRole('Quality Control') && $user->hasRole('Admin')!=true){
+          //  echo '2'; die;
             return $this->qcDashboard($request);
         }
         elseif($user->hasRole('Admin'))
         {
+           // echo '3'; die;
                 $qa=[];
                 $qc=[];
                 if($user->hasRole('Admin'))
@@ -72,6 +77,7 @@ class DashboardController extends Controller
         }
         else
         {
+          //  echo '4'; die;
                 $qa=[];
                 $qc=[];
                 
@@ -767,6 +773,7 @@ class DashboardController extends Controller
     function getTopAgency(){
         $qc=Qc::all()->pluck('audit_id')->toArray();
         $audit=Audit::with(['qmsheet.parameter.qm_sheet_sub_parameter','branch.branchable','agency.branch.branchable','yard.branch.branchable'])->where('agency_id','!=',null)->get();
+        
         $audit=$audit->whereIn('id',$qc);
         // dd($audit);
         $data=[];

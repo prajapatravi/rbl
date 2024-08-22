@@ -104,21 +104,9 @@ Users
 
 								<td>{{$loop->iteration}}</td>
 
-								<td>
+								<td>{{$row->name}}</td>
 
-									{{$row->name}}
-
-								</td>
-
-								<td>
-
-									@foreach($row->roles as $rrs)
-
-									{{$rrs->name.","}}
-
-									@endforeach
-
-								</td>
+								<td>{{$row->rolename}}</td>
 
 								<td>{{$row->email}}</td>
 

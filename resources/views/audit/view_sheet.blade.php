@@ -374,15 +374,15 @@ Messages
 
 									@if(isset($resultSubPar[$value->id]) && $resultSubPar[$value->id]->option_selected==null)
 
-										@if($value->pass==1)<option value="{{$value->weight}}" {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->selected_option==$value->weight))?'selected':''}}>Pass</option>@endif
+										@if($value->pass==1)<option value="{{$value->weight}}" {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->selected_option==$value->weight))?'selected':''}}>Satisfactory</option>@endif
 
-										@if($value->fail==1)<option value="0"  {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->is_critical==0 && $resultSubPar[$value->id]->selected_option==0))?'selected':''}}>Fail</option>@endif
+										@if($value->fail==1)<option value="0"  {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->is_critical==0 && $resultSubPar[$value->id]->selected_option==0))?'selected':''}}>Unsatisfactory</option>@endif
 
 									@else
 
-										@if($value->pass==1)<option value="{{$value->weight}}" {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->option_selected=='Pass'))?'selected':''}}>Pass</option>@endif
+										@if($value->pass==1)<option value="{{$value->weight}}" {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->option_selected=='Pass'))?'selected':''}}>Satisfactory</option>@endif
 
-										@if($value->fail==1)<option value="0"  {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->is_critical==0 && $resultSubPar[$value->id]->option_selected=='Fail'))?'selected':''}}>Fail</option>@endif
+										@if($value->fail==1)<option value="0"  {{(isset($resultSubPar[$value->id]) && ($resultSubPar[$value->id]->is_critical==0 && $resultSubPar[$value->id]->option_selected=='Fail'))?'selected':''}}>Unsatisfactory</option>@endif
 
 									@endif
 
@@ -1041,10 +1041,12 @@ jQuery(document).on('click', '.close', function() {
 	
 
 	jQuery(document).on('ready',function(e){
+		
 
 		jQuery('#collection_manager-select').val("{{$result->collection_manager_id}}")
 
 		var type="{{$data->type}}"
+	
 
 		console.log(type)
 
@@ -1057,7 +1059,7 @@ jQuery(document).on('click', '.close', function() {
 		}
 
 		else if(type=='agency'){
-
+		
 			gerProduct('{{$result->agency_id}}','agency')
 
 			editBranch('{{$result->agency_id}}','{{$result->product_id}}','agency')
@@ -1137,10 +1139,13 @@ jQuery(document).on('click', '.close', function() {
 	}
 
 	function editBranch(id,product_id,type){
+		
+	
      // var auditid='null';
       var auditid=document.getElementById("auditid").value;
-      
+
 		var saveData = jQuery.ajax({
+			
 
 			type: 'get',
 

@@ -12,4 +12,13 @@ class Products extends Model
     {
         return $this->hasMany('App\Model\ProductUser','product_id', 'id')->with('user');
     }
+
+
+    public function attributes()
+    {
+        return $this->hasMany(Productattribute::class, 'product_id', 'id');
+    }
+    
+
+    
 }

@@ -18,6 +18,7 @@ Users
 				<div class="card-header">
 					<strong class="card-title">Yard List</strong>
 					<a class="btn btn-primary btn-sm float-right" style="margin-right: 5px" href="{{route('excelDownloadYard')}}" target="_blank">Export Yard</a>
+					<a class="btn btn-info btn-sm float-right" style="margin-right: 5px" href="{{route('yardExcelUpload')}}">Import Yard</a>
 				</div>
 				<div class="card-body">
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">

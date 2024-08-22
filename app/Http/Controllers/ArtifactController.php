@@ -36,14 +36,17 @@ class ArtifactController extends Controller
 
     {
 
+        $data = [];
         if (request()->ajax()) {
-        //$data=Artifact::with('sheet:id,name','parameter:id,parameter','subparameter:id,sub_parameter')->get(['id','sheet_id','sub_parameter_id','parameter_id','file']);
-        // $data=Artifact::leftjoin('qm_sheets','artifacts.sheet_id','qm_sheets.id')->leftjoin('qm_sheet_parameters','artifacts.parameter_id','qm_sheet_parameters.id')->leftjoin('qm_sheet_sub_parameters','artifacts.sub_parameter_id','qm_sheet_sub_parameters.id')->select('qm_sheets.name AS qsheet','qm_sheet_parameters.parameter','qm_sheet_sub_parameters.sub_parameter','artifacts.id','artifacts.file')->get()->toArray();
-        $data=Artifact::leftjoin('qm_sheets','artifacts.sheet_id','qm_sheets.id')->leftjoin('qm_sheet_parameters','artifacts.parameter_id','qm_sheet_parameters.id')->leftjoin('qm_sheet_sub_parameters','artifacts.sub_parameter_id','qm_sheet_sub_parameters.id')->select('qm_sheets.name AS qsheet','qm_sheet_parameters.parameter','qm_sheet_sub_parameters.sub_parameter','artifacts.id','artifacts.file');
-
-        return DataTables::of($data)->addIndexColumn()->make(true);
-    }
-        return view('Artifact.list',compact('data'));
+            $data = Artifact::leftjoin('qm_sheets', 'artifacts.sheet_id', 'qm_sheets.id')
+                ->leftjoin('qm_sheet_parameters', 'artifacts.parameter_id', 'qm_sheet_parameters.id')
+                ->leftjoin('qm_sheet_sub_parameters', 'artifacts.sub_parameter_id', 'qm_sheet_sub_parameters.id')
+                ->select('qm_sheets.name AS qsheet', 'qm_sheet_parameters.parameter', 'qm_sheet_sub_parameters.sub_parameter', 'artifacts.id', 'artifacts.file');
+            
+            return DataTables::of($data)->addIndexColumn()->make(true);
+        }
+    
+        return view('Artifact.list', compact('data'));
     }
 
 

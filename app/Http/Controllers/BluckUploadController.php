@@ -58,7 +58,7 @@ class BluckUploadController extends Controller
     }
     public function downloadBranchNew(){
         // dd('hello');
-        $file= public_path(). "/download/branchnew.xlsx";
+        $file= public_path(). "/download/bulk_upload_rbl.xlsx";
         $headers = array(
                   'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 );

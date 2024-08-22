@@ -216,8 +216,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/test', 'HomeController@updateArtifact');
     
     Route::get('/run', 'HomeController@runmigration');
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-    Route::post('/dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::any('/dashboard', 'DashboardController@index')->name('dashboard');
+
     Route::get('/reportAutomation', 'AuditController@reportAutomation')->name('reportAutomation');
     Route::post('/reportDataUploader', 'AuditController@reportDataUploader')->name('reportDataUploader');
     Route::post('/dump-excel', 'UploadController@rawDumpAudit')->name('dump-excel');
@@ -227,7 +228,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-state-data/{state_id}', 'DashboardController@getStateData')->name('getStateData');
     Route::get('/get-agencies/{id}', 'DashboardController@getagencyOfCollection')->name('getagencyOfCollection');
     Route::get('/get-agencies-parameter/{agency_id}', 'DashboardController@getAgencyParameter')->name('getAgencyParameter');
-    Route::post('/dashboard', 'DashboardController@index')->name('dashboard');
+  
     Route::post('/all-porudct', 'DashboardController@allProduct')->name('allProduct');
     Route::post('/fetch-map', 'DashboardController@fetchMapData')->name('fetchMap');
     Route::get('/home', 'DashboardController@index')->name('home');
@@ -236,6 +237,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('update_profile/{id}', 'UserController@updateProfile')->name('updateProfile');
     // Route::group(['middleware' => ['role:zonal']], function () {
     Route::get('dowmload-user-excel', 'UserController@ExcelDownloadUser')->name('excelDownloadUser');
+
+    
     Route::get('dowmload-product-excel', 'ProductController@excelDownloadProduct')->name('excelDownloadProduct');
 
     Route::get('dowmload-branch-excel', 'BranchController@excelDownloadBranch')->name('excelDownloadBranch');
@@ -247,6 +250,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('dowmload-allocation-excel', 'AllocationController@excelDownloadAllocation')->name('excelDownloadAllocation');
     Route::post('dowmload-qa-changes-excel', 'AuditController@excelDownloadQaChanges')->name('excelDownloadQaChanges');
     Route::resource('user', 'UserController');
+    
+    Route::resource('userhierarchy', 'UserhierarchyController');
+    // Route::delete('/userhierarchy/{id}', 'UserhierarchyController@destroy')->name('userhierarchy.destroy');
+    Route::get('userhierarchy-excel-import', 'UserhierarchyController@showUserHeirarchyImport')->name('userhierarchyBulkUpload');
+    Route::post('userhierarchyimport', 'UserhierarchyController@userHierarchyImport')->name('userhierarchyimport');
+    Route::get('/download-sample-excel', 'UserhierarchyController@downloadsampleExcelUH')->name('uh.download.sampleexcel');
+
+    
     // summet
     Route::get('user/{id}/disable','UserController@disable');  // for diable user
     //sumeet
@@ -255,13 +266,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('permissions', 'PermissionController');
     Route::get('user/status/{user_id}/{status}', 'UserController@change_user_status');
     Route::resource('yard', 'YardController');
+    Route::get('yard-excel-import', 'YardController@showYardImport')->name('yardExcelUpload');
+    Route::post('yardimport', 'YardController@yardImport')->name('yardimport');
     Route::resource('agency', 'AgencyController');
+    Route::get('agency-excel-import', 'AgencyController@showAgencyImport')->name('agencyExcelUpload');
+    Route::post('agencyimport', 'AgencyController@agencyImport')->name('agencyimport');
+    Route::get('download-agency-sample', 'AgencyController@downloadAgencySample')->name('downloadAgencySample');
     Route::resource('branch', 'BranchController');
+    Route::get('branch-excel-import', 'BranchController@showBranchImport')->name('branchExcelUpload');
+    Route::post('branchimport', 'BranchController@branchImport')->name('branchimport');
     Route::get('location/city_view', 'LocationController@cityView')->name('location.city_view');
     Route::resource('location', 'LocationController');
     Route::post('location/update','LocationController@update');
-    Route::get('create-audit-cycle', 'AuditController@createCycle')->name('createCycle');
-    Route::post('create-audit-cycle', 'AuditController@createCycle')->name('createCycle');
+    Route::any('create-audit-cycle', 'AuditController@createCycle')->name('createCycle');
+    // Route::post('create-audit-cycle', 'AuditController@createCycle')->name('createCycle');
     Route::get('list-audit-cycle', 'AuditController@listCycle')->name('listCycle');
     Route::get('get-agencies-upload/{branch}', 'UploadController@getAgencies')->name('get-upload-agency');
     Route::get('get-branch-upload/{lob}', 'UploadController@getBranch')->name('get-upload-branch');
@@ -272,14 +290,28 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('user-upload', 'UploadController@userUpload')->name('userUpload');
     Route::get('bulk-deactivate', 'UploadController@bulkDeactivate')->name('bulkDeactivate');
     Route::get('download-user', 'UploadController@downloadUser')->name('downloadUser');
-    Route::post('user-import', 'UploadController@userImport')->name('userImport');
+    // Route::post('user-import', 'UploadController@userImport')->name('userImport');
+    Route::post('user-import', 'UserController@userImport')->name('userImport');
+    Route::post('user-hierarchy-import', 'UserController@userHierarchyImport')->name('userHierarchyImport');
+
+
     Route::post('bulk_user_deactivate', 'UploadController@bulk_user_deactivate')->name('bulk_user_deactivate');
+    
     Route::get('product/hierarchy/view', 'ProductController@hierarchyView')->name('HierarchyView');
-    Route::get('product/hierarchy/{branch}/{product}/edit', 'ProductController@hierarchyEdit')->name('hierarchyEdit');
+    Route::get('/product/hierarchy/{id}', 'ProductController@hierarchyEdit')->name('hierarchyEdit');
+    //Route::get('product/hierarchy/{branch}/{product}/edit', 'ProductController@hierarchyEdit')->name('hierarchyEdit');
     Route::get('product/hierarchy', 'ProductController@hierarchy')->name('Hierarchy');
+    Route::get('/product/hierarchy/{cm_id}', 'ProductController@getCmanagerDetails')->name('product.hierarchy');
+    Route::delete('/product/hierarchy/{id}', 'ProductController@destroy')->name('producthierarchy.destroy');
+
+
+
     Route::post('product/do-hierarchy', 'ProductController@doHierarchy')->name('doHierarchy');
     Route::post('product/do-hierarchy-update', 'ProductController@doHierarchyUpdate')->name('doHierarchyUpdate');
     Route::resource('product', 'ProductController');
+    Route::resource('productattribute', 'ProductattributeController');
+    
+    // Route::delete('/productattribute/{id}', 'ProductattributeController@destroy')->name('productattribute.destroy');
     Route::resource('qm', 'QmSheetController');
     Route::get('/get-regions', 'BranchController@getRegions');
     Route::get('/getStates/{id}', 'BranchController@getStates');
@@ -322,7 +354,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('audited_search','AuditController@audited_list_new')->name('audited_search');
     Route::get('done_audited_list','AuditController@done_audited_list');
     Route::post('done_audited_list','AuditController@done_audited_list')->name('done_audited_list');
-	Route::post('audited_list','AuditController@audited_list_Post')->name('audited_list');
+	Route::post('audited_list','AuditController@audited_list_Post')->name('audited_list_post');
 	Route::post('allocation/store_audit','AuditController@store_audit');
 	Route::post('allocation/store_audit_new','AuditController@store_audit_new');
 	Route::post('allocation/update_audit','AuditController@update_audit');
@@ -338,14 +370,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('download-branch', 'BluckUploadController@downloadBranchNew')->name('downloadBranch');
     Route::resource('bulkUpload','BluckUploadController');
     Route::resource('branchrepo','BranchRepoController');
+    Route::get('branchrepo-excel-import', 'BranchRepoController@showBranchRepoImport')->name('branchrepoExcelUpload');
+    Route::post('branchrepoimport', 'BranchRepoController@branchRepoImport')->name('branchrepoimport');
     Route::resource('agencyrepo','AgencyRepoController');
+    Route::get('agencyrepo-excel-import', 'AgencyRepoController@showAgencyRepoImport')->name('agencyrepoExcelUpload');
+    Route::post('agencyrepoimport', 'AgencyRepoController@agencyRepoImport')->name('agencyrepoimport');
     Route::resource('yardrepo','YardRepoController');
     Route::get('auditor_list/{status?}','AllocationController@getSheets')->name('auditor_list');
     Route::get('submit_audited_list','AllocationController@done_audited_list')->name('submit_audited_list');
     Route::get('save_audited_list','AllocationController@save_audited_list')->name('save_audited_list');
     Route::get('get_users/{value}/{type}','AuditController@getUsers')->name('getUsers');
-    Route::get('reject-user/{email}/{auditId}/{type}','AuditController@rejectUsers')->name('getUsers');
-    Route::get('save-user/{email}/{auditId}/{type}/{userid}','AuditController@saveUsers')->name('getUsers');
+    Route::get('reject-user/{email}/{auditId}/{type}','AuditController@rejectUsers')->name('rejectUsers');
+    Route::get('save-user/{email}/{auditId}/{type}/{userid}','AuditController@saveUsers')->name('saveUsers');
     Route::get('download-action-artifact/{id}','ActionController@downloadFile');
     Route::get('test-email','RedAlertController@test');
 
@@ -364,3 +400,8 @@ Route::group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/route-cache', function() {
+    $exitCode = Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});

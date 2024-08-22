@@ -209,8 +209,8 @@ Messages
 										<div class="col-md-3">
 											<select class="form-control 0bervation" id="obs{{$value->id}}" data-id="{{$value->id}}" data-parameterId="{{$item->id}}" data-point="{{$value->weight}}">
 												<option value="0">Choose type</option>
-												@if($value->pass==1)<option value="{{$value->weight}}">Pass</option>@endif
-												@if($value->fail==1)<option value="0">Fail</option>@endif
+												@if($value->pass==1)<option value="{{$value->weight}}">Satisfactory</option>@endif
+												@if($value->fail==1)<option value="0">Unsatisfactory</option>@endif
 												@if($value->critical==1)<option value="Critical">Critical</option>@endif
 												@if($value->na==1)<option value="N/A">N/A</option>@endif
 												@if($value->pwd==1)<option value="{{round(($value->weight)/2,2)}}">PWD</option>@endif

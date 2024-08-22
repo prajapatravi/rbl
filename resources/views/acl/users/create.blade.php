@@ -27,17 +27,22 @@
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="email-input" class=" form-control-label">Email</label></div>
-                <div class="col-12 col-md-9"><input type="email" id="email-input" value="{{old('email')}}" name="email"
-                                                    placeholder="Enter Email" class="form-control">
+                <div class="col-12 col-md-9"><input type="email" id="email-input" value="{{old('email')}}" name="email" placeholder="Enter Email" class="form-control">
                 </div>
             </div>
 
             <div class="row form-group">
-                <div class="col col-md-3"><label for="email-input" class=" form-control-label">Mobile</label></div>
-                <div class="col-12 col-md-9"><input type="text" id="email-input" name="mobile"
-                                                    placeholder="Enter Mobile" class="form-control" value="{{old('mobile')}}">
+                <div class="col col-md-3"><label for="mobile-input" class="form-control-label">Mobile</label></div>
+                <div class="col-12 col-md-9"><input type="text" id="mobile-input" name="mobile" placeholder="Enter Mobile" class="form-control" value="{{old('mobile')}}">
                 </div>
             </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="emp-input" class=" form-control-label">Employee Id</label></div>
+                <div class="col-12 col-md-9"><input type="text" id="emp-input" name="employee_id" placeholder="Employee Id" class="form-control" value="">
+                </div>
+            </div>
+
             <div class="row form-group">
                 <div class="col col-md-3"><label for="check-input" class=" form-control-label">Password Type</label></div>
                 <div class="col-12 col-md-9">
@@ -61,16 +66,29 @@
             </div>
 
             <div class="row form-group">
-                <div class="col col-md-3"><label for="multiple-select" class=" form-control-label">Multiple
-                        select</label></div>
+                <div class="col col-md-3"><label for="multiple-select" class=" form-control-label">Select Role
+                        </label></div>
                 <div class="col col-md-9">
-                    <select name="role[]" id="multiple-select" multiple="" class="form-control">
+                    <select name="user_role_id"  class="form-control">
                         @foreach($roles as $k=>$v)
                             <option value="{{$v->id}}">{{$v->name}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="multiple-select" class=" form-control-label">Select Audit Agency
+                        </label></div>
+                <div class="col col-md-9">
+                    <select name="audit_agency_id"  class="form-control">
+                        @foreach($roles as $k=>$v)
+                            <option value="{{$v->id}}">Qdegrees</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+           
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary btn-sm">
                     <i class="fa fa-dot-circle-o"></i> Create

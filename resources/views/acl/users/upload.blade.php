@@ -24,7 +24,7 @@
                        'files' => true)
                      ) !!}
             <div class="row">
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class=" form-group">
                         <label for="text-input" class=" form-control-label">Role</label>
                         <select name="role[]" multiple="" class="form-control">
@@ -34,7 +34,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-6">
                     <div class=" form-group">
                         <label for="user_excel" class=" form-control-label">User Excel</label>

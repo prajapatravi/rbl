@@ -35,57 +35,28 @@ Users
 				<div class="card-header">
 
 					<strong class="card-title">Product List</strong>
-
+					<a class="btn btn-primary btn-sm float-right" style="margin-right: 5px" href="{{route('product.create')}}">Create Product</a>
 				</div>
 
 				<div class="card-body">
 
 					<table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
-
 						<thead>
-
 							<tr>
-
-									<th scope="col">#</th>
-
-									<th scope="col">
-
-										Product Name
-
-									</th>
-
-									<th scope="col">
-
-										Product Bucket
-
-									</th>
-
-									
-
-									<th scope="col">
-
-										Actions
-
-									</th>
-
+								<th scope="col">#</th>
+								<th scope="col">Product Name</th>
+								<th scope="col">Product Bucket</th>
+								<th scope="col">Actions</th>
 							</tr>
 
 						</thead>
 
 						<tbody>
-
 							@foreach($product as $k=>$row)
-
 							<tr scope="row">
-
 								<td>{{$k+1}}</td>
-
-								<td>
-
-									{{$row->name}}
-
-								</td>
-
+								<td>{{$row->name}}</td>
+								
 								{{-- <td>
 
 									{{ (isset($row->type) && $row->type==0)?'First':'Second'}}
@@ -113,15 +84,11 @@ Users
 									</form> -->
 
 									<a href="{{url('product/'.Crypt::encrypt($row->id).'/edit')}}" class="btn btn-xs btn-info" title="View">
-
 										<i class="fa fa-edit"></i>
-
                                     </a>
 
                                     <a href="{{url('product/'.Crypt::encrypt($row->id))}}" class="btn btn-xs btn-danger" title="View">
-
 										<i class="fa fa-trash"></i>
-
 									</a>
 
 

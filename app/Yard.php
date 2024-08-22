@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Yard extends Model
 {
-    protected $fillable=['name','branch_id','agency_id','yard_id','agency_manager','location','addresss'];
+    protected $fillable=['branch_id', 'agency_id', 'name', 'yard_id','agency_manager','location','addresss', 'product_id'];
+    
+    
     public function branch()
     {
         return $this->hasOne('App\Model\Branch', 'id','branch_id');

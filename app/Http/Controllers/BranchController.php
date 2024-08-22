@@ -23,7 +23,7 @@ use App\Agency;
 use Illuminate\Support\Facades\DB;
 
 use Validator;
-
+use App\Imports\BranchesImport;
 use App\Exports\BranchExport;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -45,13 +45,9 @@ class BranchController extends Controller
      */
 
     public function index()
-
     {
-
         $data = Branch::with('city')->where('status',0)->orderBy('name', 'ASC')->get();
-
         return view('branch.list', compact('data'));
-
     }
 
 
@@ -67,13 +63,10 @@ class BranchController extends Controller
      */
 
     public function create()
-
     {
 
         $regions = DB::table("regions")->get();
-
         // $users = User::role('Collection Manager')->get(['id', 'name']);
-
         $users = User::get(['id', 'name']);
 
         $product=Products::get();
@@ -116,7 +109,7 @@ class BranchController extends Controller
 
             // 'owner_id' => 'required',
 
-            'uuid' => 'required',
+            // 'uuid' => 'required',
 
             'location' => 'required',
 
@@ -537,6 +530,22 @@ class BranchController extends Controller
         return Excel::download(new BranchExport, 'Branch.xlsx');
 
     }
+
+
+    //V Upload Page Show
+     public function showBranchImport()
+     {
+         return view('branch.upload');
+     }
+ 
+ 
+    //V Upload Excel Data
+     public function branchImport()
+     {
+         Excel::import(new BranchesImport, request()->file('file'));
+ 
+         return redirect()->back()->with('success', 'Excel file imported successfully.');
+     }
 
 }
 

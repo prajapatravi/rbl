@@ -49,10 +49,25 @@ Edit
             <input type="text" name="mobile" class="form-control" required value="{{$data->mobile}}">
           </div>
           <div class="col-lg-6">
-            <label>Roles*</label>
-            {{ Form::select('role[]',$roles,$rdata,['class'=>'form-control m-select2','id'=>'kt_select2_1','multiple'=>'multiple','required'=>'required']) }}
+            <label>Employee Id*</label>
+            <input type="text" name="employee_id" class="form-control" required value="{{$data->employee_id}}">
           </div>
         </div>
+
+        <div class="form-group row">
+          <div class="col-lg-6">
+          <label>Select Role*</label>
+            <select name="user_role_id"  class="form-control">
+              @foreach($roles as $k=>$v)
+                  <option value="{{ $v->id }}" {{ $data->user_role_id == $v->id ? 'selected' : '' }}>
+                      {{ $v->name }}
+                  </option>
+              @endforeach
+            </select>
+          </div>
+        </div>   
+
+        
 
 
         </div>

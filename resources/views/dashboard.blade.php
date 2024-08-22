@@ -399,7 +399,8 @@
                             </div>
                         </div>
                         <div class="row">
-                           @foreach ($product as $item)
+                            @if(isset($product))    
+                            @foreach ($product as $item)
                                 <div class="col-lg-3 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
@@ -413,6 +414,7 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -429,9 +431,11 @@
                                     <div class="col-md-6">
                                         <Select class="form-control" name="product" id="nationalProduct">
                                             <option value="all">All</option>
+                                            @if(isset($productList))
                                             @foreach ($productList as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
+                                            @endif
                                         </Select>
                                     </div>
                                     <div class="col-md-6">Line of Business </div>
@@ -518,9 +522,11 @@
                                             <label for="lob">Product</label>
                                             <select class="form-control" name="filterProduct" id="filterProduct">
                                                 <option value="all" {{(isset($old['filterProduct']) && $old['filterProduct']=='all')?'selected':''}}>All</option>
+                                                @if(isset($productList))
                                                 @foreach ($productList as $item)
                                                     <option value="{{$item->id}}" {{(isset($old['filterProduct']) && $old['filterProduct']==$item->id)?'selected':''}}>{{$item->name}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="col-md-2">
@@ -595,6 +601,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(isset($filterData))
                                 @foreach($filterData as $k=>$item)
                                 <tr>
                                 <td>{{$item['name']}}</td>
@@ -603,6 +610,7 @@
                                 <td><a style="cursor: pointer;" class="filterShow" data-id="{{$k}}" data-name="{{$item['name']}}">Show Details</a></td>
                                 </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                         <div>
@@ -624,6 +632,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($topCollectionManager))
                                         @foreach ($topCollectionManager['bottom'] as $item)
                                             <tr>
                                                 <td>{{$item['name']}}</td>
@@ -631,6 +640,7 @@
                                                 <td>0</td>
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div>
@@ -651,6 +661,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($topCollectionManager))
                                         @foreach ($topCollectionManager['top'] as $item)
                                         <tr>
                                             <td>{{$item['name']}}</td>
@@ -658,6 +669,7 @@
                                             <td>0</td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 {{-- <div>
@@ -680,6 +692,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($bottomProductParameter))
                                         @foreach ($bottomProductParameter['bottom'] as $item)
                                         <tr>
                                             <td>{{$item['name']}}</td>
@@ -687,6 +700,7 @@
                                             <td>0</td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 {{-- <div>
@@ -707,6 +721,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($bottomProductParameter))
                                         @foreach ($bottomProductParameter['top'] as $item)
                                         <tr>
                                             <td>{{$item['name']}}</td>
@@ -714,6 +729,7 @@
                                             <td>0</td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 {{-- <div>
@@ -736,6 +752,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($topAgency))
                                         @foreach ($topAgency['bottom'] as $item)
                                         <tr>
                                             <td>{{$item['name']}}</td>
@@ -743,6 +760,7 @@
                                             <td>0</td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 <div>
@@ -763,6 +781,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(isset($topAgency))
                                         @foreach ($topAgency['top'] as $item)
                                         <tr>
                                             <td>{{$item['name']}}</td>
@@ -770,6 +789,7 @@
                                             <td>0</td>
                                         </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 {{-- <div>

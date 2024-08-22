@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branchable extends Model
 {
-    protected $fillable = ['branch_id', 'product_id','manager_id','type','bucket','acm_id','zcm_id','rcm_id','ncm_id','gph_id'];
+    protected $fillable = ['branch_id', 'product_id','manager_id','type','bucket','cm_id','acm_id','zcm_id','rcm_id','ncm_id','gph_id'];
     public function product()
     {
         return $this->hasOne('App\Model\Products', 'id','product_id');

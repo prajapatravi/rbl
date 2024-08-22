@@ -9,6 +9,7 @@ use App\User;
 use App\Agency;
 use App\Model\Branch;
 use Validator;
+use App\Imports\YardImport;
 use App\Exports\YardExport;
 use Maatwebsite\Excel\Facades\Excel;
 class YardController extends Controller
@@ -182,4 +183,20 @@ class YardController extends Controller
         ini_set('max_execution_time', 3000);
         return Excel::download(new YardExport, 'Yard.xlsx');
     }
+
+
+    //V Upload Page Show
+    public function showYardImport()
+    {
+        return view('yard.upload');
+    }
+
+
+    //V Upload Excel Data
+    public function yardImport()
+    {
+        Excel::import(new YardImport, request()->file('file'));
+        return redirect()->back()->with('success', 'Excel file imported successfully.');
+    }
+
 }
